@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="hy">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="style/style.css">
+    <title>Birthday Invitation</title>
+</head>
+<body>
+
+    <canvas id="particleCanvas"></canvas>
+    <div class="glossy-overlay"></div>
+
+    <div class="main">
+        <div class="glass-container">
+            <div class="info-blok">
+                
+                <div class="header_blok reveal">
+                    <img src="img/6.png" alt="img" class="header_img">
+                </div>
+                
+                <div class="main_img reveal">
+                    <img src="img/1.png" alt="">
+                    <div class="sliding-date-wrapper shiny-date">
+                        <span class="date-part left">05</span>
+                        <span class="date-dot">.</span>
+                        <span class="date-part right">05</span>
+                    </div>
+                </div>
+
+                <div class="time_blok reveal">
+                    <img src="img/7.png" alt="">
+                    <h5 class="glow-text">TIME</h5>
+                    <div class="line reveal-line"></div>
+                    <h4>Amar Restaurant</h4>
+                    <p>Dzorapi St., 35 Building</p>
+                    <div class="line reveal-line"></div>
+                    <h4>16:00</h4>
+                    <img src="img/2.png" alt="" class="galeria">
+                </div>
+
+                <div class="dress_code reveal">
+                    <h5 class="glow-text">Dress Code</h5>
+                    <div class="palette-container">
+                        <div class="connecting-line"></div>
+                        <div class="palette-wrapper">
+                            <div class="swatch white reveal-item"></div>
+                            <div class="swatch maroon reveal-item"></div>
+                            <div class="swatch beige reveal-item"></div>
+                            <div class="swatch pink reveal-item"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="arch-container reveal">
+                    <div class="line line-short"></div>
+                    <div class="arch-card reveal-item"><img src="img/dress-code1.jpg"></div>
+                    <div class="line line-middle"></div>
+                    <div class="arch-card reveal-item"><img src="img/dress-code2.jpg"></div>
+                    <div class="line line-long"></div>
+                </div>
+
+                <div class="arch-container-right reveal">
+                    <div class="line line-long"></div>
+                    <div class="arch-card reveal-item"><img src="img/dress-code3.jpg"></div>
+                    <div class="line line-middle"></div>
+                    <div class="arch-card reveal-item"><img src="img/dress-code4.jpg"></div>
+                    <div class="line line-short"></div>
+                </div>
+
+                <div class="thank_you_blok reveal">
+                    <img src="img/8.png" alt="img" class="thank_you_img">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                } else {
+                    entry.target.classList.remove('active');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.reveal, .reveal-item, .reveal-line').forEach(el => observer.observe(el));
+
+        const canvas = document.getElementById('particleCanvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        let particles = [];
+        const colors = ['#f264f2', '#ffcc00', '#ffffff'];
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 1.5 + 0.5;
+                this.speedY = Math.random() * 0.5 + 0.2;
+                this.color = colors[Math.floor(Math.random() * colors.length)];
+                this.opacity = Math.random() * 0.5;
+            }
+            update() {
+                this.y += this.speedY;
+                if (this.y > canvas.height) this.y = 0;
+            }
+            draw() {
+                ctx.globalAlpha = this.opacity;
+                ctx.fillStyle = this.color;
+                ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill();
+            }
+        }
+        function init() { for (let i = 0; i < 80; i++) particles.push(new Particle()); }
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => { p.update(); p.draw(); });
+            requestAnimationFrame(animate);
+        }
+        init(); animate();
+    </script>
+</body>
+</html>

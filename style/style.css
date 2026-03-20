@@ -1,0 +1,314 @@
+@font-face {
+    font-family: "CENTRASONE";
+    src: url("../fonts/CENTRASONE.otf") format("truetype");
+}
+
+/* --- MAGIC BACKGROUND --- */
+body {
+    background-color: #030005;
+    background-image:
+        radial-gradient(circle at 20% 20%, rgba(242, 100, 242, 0.12) 0%, transparent 40%),
+        radial-gradient(circle at 80% 80%, rgba(255, 204, 0, 0.05) 0%, transparent 40%);
+    margin: 0;
+    overflow-x: hidden;
+    font-family: "DejaVuSans", sans-serif;
+}
+
+#particleCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -2;
+    pointer-events: none;
+}
+
+.glossy-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.06) 0%, transparent 70%);
+    animation: moveShine 10s infinite alternate ease-in-out;
+    pointer-events: none;
+    z-index: -1;
+}
+
+@keyframes moveShine {
+    0% {
+        transform: scale(1) translate(-5%, -5%);
+    }
+
+    100% {
+        transform: scale(1.1) translate(5%, 5%);
+    }
+}
+
+.glass-container {
+    max-width: 600px;
+    margin: 20px auto;
+    background: rgba(255, 255, 255, 0.02);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border-radius: 40px;
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    padding: 20px 5px;
+}
+
+.info-blok {
+    text-align: center;
+}
+
+/* --- 05.05 SHINY & GLOW --- */
+.sliding-date-wrapper {
+    font-family: "Constantia";
+    font-size: 57pt;
+    font-weight: bolder;
+    margin-top: -73px;
+    margin-bottom: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.shiny-date span {
+    background: linear-gradient(120deg, #fff 30%, #f264f2 50%, #fff 70%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: textShine 3s linear infinite;
+    text-shadow: 0 0 15px rgba(242, 100, 242, 0.3);
+}
+
+@keyframes textShine {
+    to {
+        background-position: 200% center;
+    }
+}
+
+.date-part {
+    display: inline-block;
+    opacity: 0;
+    transition: transform 2.8s cubic-bezier(0.16, 1, 0.3, 1), opacity 2.5s ease;
+}
+
+.date-part.left {
+    transform: translateX(-150px);
+}
+
+.date-part.right {
+    transform: translateX(150px);
+}
+
+.date-dot {
+    opacity: 0;
+    transition: opacity 1s ease 2.2s;
+}
+
+.active .date-part {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+.active .date-dot {
+    opacity: 1;
+}
+
+/* --- DRESS CODE (HORIZONTAL LINE FIX) --- */
+.palette-container {
+    position: relative;
+    width: 100%;
+    padding: 30px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.connecting-line {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 1.5px;
+    background-color: rgba(255, 255, 255, 0.6);
+    z-index: 1;
+    /* Հետևում */
+}
+
+.palette-wrapper {
+    position: relative;
+    z-index: 2;
+    /* Գույները առջևում */
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+}
+
+.swatch {
+    width: clamp(50px, 18vw, 85px);
+    aspect-ratio: 1;
+    border-radius: 50% 50% 0 0;
+    border: 2px solid #ffffff;
+    background-clip: padding-box;
+}
+
+.white {
+    background-color: #f7f3f2;
+}
+
+.maroon {
+    background-color: #7d203e;
+}
+
+.beige {
+    background-color: #ccc3b8;
+}
+
+.pink {
+    background-color: #ebb0c5;
+}
+
+/* --- SLOW REVEAL --- */
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 2s ease;
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.reveal-line {
+    height: 0 !important;
+    transition: height 2.5s ease;
+}
+
+.reveal-line.active {
+    height: 100px !important;
+}
+
+.reveal-item {
+    opacity: 0;
+    transform: scale(0.9);
+    transition: all 1.8s ease;
+}
+
+.active .reveal-item {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* --- OTHERS --- */
+.header_blok img {
+    width: 80%;
+    padding-top: 20px;
+}
+
+.main_img img {
+    width: 70%;
+}
+
+.time_blok img {
+    width: 100%;
+}
+
+.time_blok h5,
+.dress_code h5 {
+    font-family: "Centrasone";
+    color: #f264f2;
+    text-shadow: 0 0 10px rgba(242, 100, 242, 0.4);
+}
+
+.time_blok h5 {
+    font-size: 50pt;
+    letter-spacing: 14px;
+    margin: 25px 0;
+}
+
+.time_blok .line {
+    width: 4px;
+    background-color: #fff;
+    margin: 0 auto 25px;
+}
+
+.time_blok h4 {
+    font-family: "Centrasone";
+    font-size: 20pt;
+    color: #f264f2;
+    letter-spacing: 10px;
+    margin: 25px 0 20px;
+}
+
+.time_blok p {
+    font-family: "Centrasone";
+    font-size: 16.645pt;
+    color: #fff;
+    letter-spacing: 3px;
+}
+
+.dress_code h5 {
+    font-size: 26pt;
+    letter-spacing: 4px;
+    margin: 25px 0;
+}
+
+.arch-container,
+.arch-container-right {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin-top: 30px;
+}
+
+.line {
+    height: 2px;
+    background-color: #fff;
+    margin: auto 5px;
+}
+
+.line-short {
+    width: 20px;
+}
+
+.line-middle {
+    width: 40px;
+}
+
+.line-long {
+    flex-grow: 1;
+}
+
+.arch-card {
+    width: clamp(80px, 30vw, 110px);
+    aspect-ratio: 106 / 157;
+    border: 3px solid #fff;
+    border-radius: 500px 500px 0 0;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.arch-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.thank_you_blok {
+    text-align: center;
+    margin: 120px 20px 50px 0;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.thank_you_img {
+    width: 70%;
+}
+
+@media screen and (max-width: 767px) {
+    .sliding-date-wrapper {
+        font-size: 15vw;
+        margin-top: -12vw;
+    }
+}
