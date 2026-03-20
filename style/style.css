@@ -209,8 +209,10 @@ body {
 .main_img img {
     width: 70%;
 }
-
 .time_blok img {
+    width: 50%;
+}
+.time_blok .galeria {
     width: 100%;
 }
 
